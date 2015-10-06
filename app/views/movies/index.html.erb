@@ -5,7 +5,22 @@
     <p><%= link_to "Sign Up To Write A Review", new_user_registration_path, class: "btn btn-info btn-md" %></p>
   </div>
 <% end %>
-
+<div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-7">
+      <%= form_tag search_movies_path, method: :get, role: "search" do %>
+        <p>
+          <%= text_field_tag :search, params[:search], class: "form-control", :placeholder => 'Search your favourite Nepali Movies ...' %>
+         
+        </p>
+      
+      </div>
+      <div class="col-md-2"> <%= submit_tag "Search", name: nil, class: "btn btn-warning" %></div>
+      <% end %>
+      <div class="col-md-1"></div>
+</div>
+<hr>
+<br>
 <div class="row">
   <% @movies.each do |movie| %>
     <div class="col-sm-6 col-md-3">

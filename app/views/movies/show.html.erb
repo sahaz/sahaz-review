@@ -1,11 +1,16 @@
  <div class="panel panel-default">
   <div class="panel-body">
+    <%= link_to 'Back', movies_path, class: "btn btn-xs  btn-default"  %>  
+     <% if user_signed_in? %>
+        <% if current_user.email == 'sahaz@gmail.com'%>
+          <%= link_to 'Edit Movie info', edit_movie_path(@movie), class: "btn btn-xs  btn-warning" %>  
+        <% end %>
+    <% end %>
+    <br>
     <div class="row">
       <div class="col-md-5">
-        <%= image_tag @movie.image.url(:medium) %>
-        
-        
-        
+        <%= image_tag @movie.image.url(:medium), class: "img-responsive img-rounded center-block" %>
+        <br>
 
         <div class="table-responsive">
           <table class="table">
@@ -35,21 +40,32 @@
               </tr>
             </tbody>
           </table>
-         <%= link_to "Write a Review", new_movie_review_path(@movie) %>
+         
         </div>
       </div>
       <div class="col-md-7 ">
-        <h1 class="review_title"><%= @movie.title %></h1>
-        <p><b>Plot : </b><%= @movie.description %></p>
+        <div class="row">
+          <div class="col-md-10">
+            <h1 class="review_title"><%= @movie.title %></h1>
+          </div>
+          <div class="col-md-2">
+           <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-xs btn-info" %>
+          </div>
+        </div>
+        <p class="lead"><b>Plot : </b><%= @movie.description %></p>
+        <hr>
 
         <% if @reviews.blank? %>
-          <h3>No reviews just yet, would you like to add the first!</h3>
-          <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-danger" %>
+          <em>No reviews have been posted for this movie. Be the first to add a review ! </em> 
+          <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-xs btn-danger" %>
         <% else %>
           <% @reviews.each do |review| %>
             <div class="reviews">
+              <strong><%= review.user.email %></strong>
                <div class="star-rating" data-score= <%= review.rating %> ></div>
-              <p><%= review.comment %></p>
+              <em><%= review.comment %></em>
+              
+
             </div>
           <% end %>
         <% end %>
@@ -59,8 +75,7 @@
   </div>
 </div>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+
 <script>
     $('.star-rating').raty({
       path: '/assets/',

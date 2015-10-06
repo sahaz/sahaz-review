@@ -15,7 +15,12 @@
  */
 
 @import "bootstrap-sprockets";
+$navbar-default-bg: #FFFFFF;
+ 
+$navbar-brand-bg: #003400;
+$jumbotron-bg: #8EFC80;
 @import "bootstrap";
+
 
 body {
 	background: #000000;
